@@ -5,7 +5,7 @@ from celery import Celery
 
 app = Flask(__name__)
 
-# Configure Celery
+# Configure Celery here we use radis
 app.config['CELERY_BROKER_URL'] = os.getenv('CELERY_BROKER_URL')
 app.config['CELERY_RESULT_BACKEND'] = os.getenv('CELERY_RESULT_BACKEND')
 
