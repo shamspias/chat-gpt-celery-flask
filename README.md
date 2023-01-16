@@ -45,6 +45,19 @@ This repository demonstrates how to create a simple chatbot by combining the pow
     ```
    http://localhost:5000/result/8d5f0b5d-a5e5-4b8f-b5f5-5a5a5a5a5a5a
     ```
+   
+## Docker
+
+1. Build the Docker image by running the following command in terminal:
+    ```
+   docker build -t gpt-chat-flask-celery .
+    ```
+2. Once the image is built, you can run the container using the following command:
+    ```
+   docker run -p 5000:5000 gpt-chat-flask-celery
+    ```
+3. You can access the application on `http://localhost:5000`
+
 ## Limitations
 This sample chatbot has some limitations and is just for demonstration purposes.
 
