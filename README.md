@@ -51,6 +51,7 @@ This sample chatbot has some limitations and is just for demonstration purposes.
 - It uses GPT-3 with a single endpoint and does not handle pagination.
 - It does not handle any form of natural language processing, sentiment analysis, or other advanced features.
 - It does not have any form of UI and just accepts and returns json data.
+
 ## Contributions
 If you find any bugs or would like to add new features, please feel free to open a pull request or an issue.
 
