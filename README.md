@@ -55,4 +55,4 @@ This sample chatbot has some limitations and is just for demonstration purposes.
 If you find any bugs or would like to add new features, please feel free to open a pull request or an issue.
 
 ## License
-This repository is released under the MIT license. See LICENSE for more details.
+This repository is released under the MIT license. See [LICENSE](https://github.com/shamspias/chat-gpt-celery-flask/blob/main/LICENSE.md) for more details.
