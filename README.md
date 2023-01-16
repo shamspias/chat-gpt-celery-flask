@@ -20,7 +20,7 @@ This repository demonstrates how to create a simple chatbot by combining the pow
     ```
    pip install -r requirements.txt
     ```
-3. Replace `YOUR_API_KEY` in `app.py` with your OpenAI API key.
+3. Replace `example.env` to `.env` and change `YOUR_API_KEY` in `app.py` with your OpenAI API key.
 4. Start the Redis server:
     ```
    redis-server
