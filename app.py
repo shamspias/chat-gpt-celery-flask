@@ -1,9 +1,12 @@
 import os
 import requests
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from celery import Celery
 
 app = Flask(__name__)
+
+load_dotenv()
 
 # Configure Celery here we use radis
 app.config['CELERY_BROKER_URL'] = os.getenv('CELERY_BROKER_URL')
