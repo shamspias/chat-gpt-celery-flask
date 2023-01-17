@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import cross_origin
 from celery import Celery
+import openai
 
 app = Flask(__name__)
 
@@ -20,6 +21,7 @@ celery.conf.update(app.config)
 gpt3_endpoint = "https://api.openai.com/v1/engines/text-davinci-003/completions"
 gpt3_image_endpoint = "https://api.openai.com/v1/images/generations"
 gpt3_api_key = os.getenv("OPEN_AI_KEY")
+openai.api_key = gpt3_api_key
 
 
 @celery.task
@@ -41,22 +43,15 @@ def generate_text(prompt):
 
 
 @celery.task
-def generate_image(prompt, image_size=512, image_width=512):
-    # Send request to GPT-3
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {gpt3_api_key}"
-    }
-    data = {
-        "prompt": prompt,
-        "model": "image-alpha-001",
-        "image_size": image_size,
-        "image_width": image_width,
-    }
-    response = requests.post(gpt3_endpoint, headers=headers, json=data)
+def generate_image(prompt, number=1, image_size=512, image_width=512):
+    response = openai.Image.create(
+        prompt=prompt,
+        n=number,
+        size=image_size + "x" + image_width
+    )
+    image_url = response['data'][0]['url']
 
-    # Return response
-    return response.json()
+    return image_url
 
 
 @app.route('/chat', methods=['POST'])
@@ -90,11 +85,12 @@ def result(task_id):
 def image_chat():
     # Get prompt from client
     prompt = request.json.get('prompt')
+    number = request.json.get('number')
     image_size = request.json.get('image_size')
     image_width = request.json.get('image_width')
 
     # Run GPT-3 task asynchronously
-    task = generate_image.apply_async(args=(prompt, image_size, image_width))
+    task = generate_image.apply_async(args=(prompt, number, image_size, image_width))
 
     # Return task id
     return jsonify({'task_id': task.id})
