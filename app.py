@@ -18,6 +18,7 @@ celery.conf.update(app.config)
 
 # GPT-3 endpoint and credentials
 gpt3_endpoint = "https://api.openai.com/v1/engines/text-davinci-003/completions"
+gpt3_image_endpoint = "https://api.openai.com/v1/images/generations"
 gpt3_api_key = os.getenv("OPEN_AI_KEY")
 
 
@@ -32,6 +33,25 @@ def generate_text(prompt):
         "prompt": prompt,
         "temperature": 0.5,
         "max_tokens": 128
+    }
+    response = requests.post(gpt3_endpoint, headers=headers, json=data)
+
+    # Return response
+    return response.json()
+
+
+@celery.task
+def generate_image(prompt):
+    # Send request to GPT-3
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {gpt3_api_key}"
+    }
+    data = {
+        "prompt": prompt,
+        "model": "image-alpha-001",
+        "image_size": 512,
+        "image_width": 512,
     }
     response = requests.post(gpt3_endpoint, headers=headers, json=data)
 
@@ -58,6 +78,32 @@ def result(task_id):
     # Get task result
     response = generate_text.AsyncResult(task_id).get()
     result = response['choices'][0]['text']
+
+    # Return response
+    return jsonify({
+        "data": result
+    })
+
+
+@app.route('/image_chat', methods=['POST'])
+@cross_origin()
+def image_chat():
+    # Get prompt from client
+    prompt = request.json.get('prompt')
+
+    # Run GPT-3 task asynchronously
+    task = generate_image.apply_async(args=(prompt,))
+
+    # Return task id
+    return jsonify({'task_id': task.id})
+
+
+@app.route('/image/<task_id>', methods=['GET'])
+@cross_origin()
+def image_result(task_id):
+    # Get task result
+    response = generate_image.AsyncResult(task_id).get()
+    result = response.json()["data"][0]["url"]
 
     # Return response
     return jsonify({
