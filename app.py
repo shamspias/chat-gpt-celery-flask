@@ -84,10 +84,10 @@ def result(task_id):
 @cross_origin()
 def image_chat():
     # Get prompt from client
-    prompt = request.json.get('prompt')
-    number = request.json.get('number')
-    image_size = request.json.get('image_size')
-    image_width = request.json.get('image_width')
+    prompt = request.json.get('prompt', "cartoon cat")
+    number = request.json.get('number', 1)
+    image_size = request.json.get('image_size', 1024)
+    image_width = request.json.get('image_width', 1024)
 
     # Run GPT-3 task asynchronously
     task = generate_image.apply_async(args=(prompt, number, image_size, image_width))
