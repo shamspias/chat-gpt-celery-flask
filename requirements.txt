@@ -4,3 +4,4 @@ openai
 gunicorn
 celery
 redis
+flask-cors
