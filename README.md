@@ -52,13 +52,13 @@ This repository demonstrates how to create a simple chatbot by combining the pow
     ```
    docker build -t gpt-chat-flask-celery .
     ```
-2. You will also need a separate container for Redis as message broker
+2. ~~You will also need a separate container for Redis as message broker~~
     ```
    docker run -p 6379:6379 --name redis-server -d redis
     ```
 3. Once the image is built, you can run the container using the following command:
     ```
-   docker run -p 5000:5000 --link redis-server:redis gpt-chat-flask-celery
+   docker run -p 5000:5000 --name gpt-chat-flask-celery gpt-chat-flask-celery
     ```
 4. You can access the application on `http://localhost:5000`
 
