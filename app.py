@@ -53,10 +53,13 @@ def chat():
 @app.route('/result/<task_id>', methods=['GET'])
 def result(task_id):
     # Get task result
-    result = generate_text.AsyncResult(task_id).get()
+    response = generate_text.AsyncResult(task_id).get()
+    result = response['choices'][0]['text']
 
     # Return response
-    return jsonify(result)
+    return jsonify({
+        "data": result
+    })
 
 
 if __name__ == '__main__':
