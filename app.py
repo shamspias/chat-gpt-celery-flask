@@ -105,7 +105,7 @@ def image_chat():
 def image_result(task_id):
     # Get task result
     response = generate_image.AsyncResult(task_id).get()
-    result = response["data"][0]["url"]
+    result = response
 
     # Return response
     return jsonify({
