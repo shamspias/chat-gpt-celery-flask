@@ -2,6 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+from flask_cors import cross_origin
 from celery import Celery
 
 app = Flask(__name__)
@@ -39,6 +40,7 @@ def generate_text(prompt):
 
 
 @app.route('/chat', methods=['POST'])
+@cross_origin()
 def chat():
     # Get prompt from client
     prompt = request.json.get('prompt')
@@ -51,6 +53,7 @@ def chat():
 
 
 @app.route('/result/<task_id>', methods=['GET'])
+@cross_origin()
 def result(task_id):
     # Get task result
     response = generate_text.AsyncResult(task_id).get()
