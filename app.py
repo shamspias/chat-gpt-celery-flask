@@ -16,7 +16,7 @@ celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
 # GPT-3 endpoint and credentials
-gpt3_endpoint = "https://api.openai.com/v1/engines/davinci-codex/completions"
+gpt3_endpoint = "https://api.openai.com/v1/engines/text-davinci-003/completions"
 gpt3_api_key = os.getenv("OPEN_AI_KEY")
 
 
