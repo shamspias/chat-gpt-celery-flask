@@ -3,3 +3,4 @@ python-dotenv
 openai
 gunicorn
 celery
+redis
