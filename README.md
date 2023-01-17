@@ -48,13 +48,13 @@ This repository demonstrates how to create a simple chatbot by combining the pow
    
 ## Docker
 
-1. Copy example.env to .env and give required variables and build the Docker image by running the following command in terminal:
+1. Copy example.env to .env and give required variables
+    ```
+   cp example.env .env
+    ```
+2. Build the Docker image by running the following command in terminal:
     ```
    docker build -t gpt-chat-flask-celery .
-    ```
-2. ~~You will also need a separate container for Redis as message broker~~
-    ```
-   docker run -p 6379:6379 --name redis-server -d redis
     ```
 3. Once the image is built, you can run the container using the following command:
     ```
