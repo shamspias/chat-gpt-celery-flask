@@ -12,4 +12,4 @@ CMD redis-server
 # Start the celery worker and beat
 CMD celery -A app.celery worker --loglevel=info --concurrency=4 --beat
 # Start the Flask app
-CMD ["python", "app.py"]
+CMD flask run
