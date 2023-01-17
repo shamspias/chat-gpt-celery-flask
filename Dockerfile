@@ -7,6 +7,8 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
+# Start Redis server
+CMD redis-server
 # Start the celery worker and beat
 CMD celery -A app.celery worker --loglevel=info --concurrency=4 --beat
 # Start the Flask app
