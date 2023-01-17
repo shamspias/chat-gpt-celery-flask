@@ -43,13 +43,13 @@ def generate_text(prompt):
 
 
 @celery.task
-def generate_image(prompt, number=1, image_size=512, image_width=512):
+def generate_image(prompt, number, image_size, image_width):
     response = openai.Image.create(
         prompt=prompt,
         n=number,
         size=str(image_size) + "x" + str(image_width)
     )
-    image_url = response['data'][0]['url']
+    image_url = response['data']
 
     return image_url
 
