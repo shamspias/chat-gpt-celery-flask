@@ -41,7 +41,7 @@ def generate_text(prompt):
 
 
 @celery.task
-def generate_image(prompt):
+def generate_image(prompt, image_size=512, image_width=512):
     # Send request to GPT-3
     headers = {
         "Content-Type": "application/json",
@@ -50,8 +50,8 @@ def generate_image(prompt):
     data = {
         "prompt": prompt,
         "model": "image-alpha-001",
-        "image_size": 512,
-        "image_width": 512,
+        "image_size": image_size,
+        "image_width": image_width,
     }
     response = requests.post(gpt3_endpoint, headers=headers, json=data)
 
@@ -90,9 +90,11 @@ def result(task_id):
 def image_chat():
     # Get prompt from client
     prompt = request.json.get('prompt')
+    image_size = request.json.get('image_size')
+    image_width = request.json.get('image_width')
 
     # Run GPT-3 task asynchronously
-    task = generate_image.apply_async(args=(prompt,))
+    task = generate_image.apply_async(args=(prompt, image_size, image_width))
 
     # Return task id
     return jsonify({'task_id': task.id})
