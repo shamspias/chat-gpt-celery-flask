@@ -48,7 +48,7 @@ This repository demonstrates how to create a simple chatbot by combining the pow
    
 ## Docker
 
-1. Build the Docker image by running the following command in terminal:
+1. Copy example.env to .env and give required variables and build the Docker image by running the following command in terminal:
     ```
    docker build -t gpt-chat-flask-celery .
     ```
