@@ -7,6 +7,7 @@ from celery import Celery
 import openai
 
 app = Flask(__name__)
+app.template_folder = 'templates'
 
 load_dotenv()
 
@@ -61,7 +62,7 @@ def index():
     :return: html
     """
 
-    return render_template('templates/index.html')
+    return render_template('chatbot.html', name="landing")
 
 
 @app.route('/chat', methods=['POST'])
