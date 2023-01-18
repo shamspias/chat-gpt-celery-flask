@@ -7,7 +7,6 @@ from celery import Celery
 import openai
 
 app = Flask(__name__)
-app.template_folder = 'templates'
 
 load_dotenv()
 
@@ -54,15 +53,15 @@ def generate_image(prompt, number, image_size, image_width):
 
     return image_url
 
-
-@app.route("/")
-def index():
-    """
-    Index / Main page
-    :return: html
-    """
-
-    return render_template('chatbot.html', name="landing")
+# app.template_folder = 'templates'
+# @app.route("/")
+# def index():
+#     """
+#     Index / Main page
+#     :return: html
+#     """
+#
+#     return render_template('chatbot.html', name="landing")
 
 
 @app.route('/chat', methods=['POST'])
