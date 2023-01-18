@@ -1,7 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import cross_origin
 from celery import Celery
 import openai
@@ -52,6 +52,16 @@ def generate_image(prompt, number, image_size, image_width):
     image_url = response['data']
 
     return image_url
+
+
+@app.route("/")
+def index():
+    """
+    Index / Main page
+    :return: html
+    """
+
+    return render_template('templates/index.html')
 
 
 @app.route('/chat', methods=['POST'])
