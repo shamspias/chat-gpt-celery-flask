@@ -45,7 +45,7 @@ This repository demonstrates how to create a simple chatbot by combining the pow
     ```
    http://localhost:5000/result/8d5f0b5d-a5e5-4b8f-b5f5-5a5a5a5a5a5a
     ```
-10. To genarate image same process as 7 to 9 just POST request URL is `http://localhost:5000/image_chat` and GET URL is `https://chatbot.deadlyai.com/image/<task_id>`
+10. To genarate image same process as 7 to 9 just POST request URL is `http://localhost:5000/image_chat` and GET URL is `http://localhost:5000/image/<task_id>`
    
 ## Docker
 
