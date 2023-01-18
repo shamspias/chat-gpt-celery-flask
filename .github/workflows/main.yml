@@ -1,0 +1,38 @@
+name: Python Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build the Docker container
+      run: |
+        docker build -t chat-gpt-celery-flask .
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        docker push my-image
+        
+    - name: Test the application
+      run: |
+        docker run -d --name chat-gpt-celery-flask-app -p 5000:5000 chat-gpt-celery-flask
+        sleep 30
+        curl localhost:5000
+        # Run your test commands here
+        # Example: pytest test.py
+        # Example: behave features/
+     
+    - name: Deploy to production
+      if: success()
+      run: |
+        # Deploy your container to production
+        # Example: 
+        # docker run -d --name chat-gpt-celery-flask-app -p 5000:5000 chat-gpt-celery-flask
+        # docker stop my-container
+        # docker rm my-container
