@@ -75,3 +75,9 @@ If you find any bugs or would like to add new features, please feel free to open
 
 ## License
 This repository is released under the MIT license. See [LICENSE](https://github.com/shamspias/chat-gpt-celery-flask/blob/main/LICENSE.md) for more details.
+
+## Test Client
+
+to test this can use this simple client
+
+[React-Client](https://github.com/shamspias/chat-gpt-react-client)
