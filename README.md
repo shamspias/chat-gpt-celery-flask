@@ -14,7 +14,7 @@ This repository demonstrates how to create a simple chatbot by combining the pow
 ## Usage
 1. Clone the repository:
     ```
-    git clone https://github.com/<your-username>/chat-gpt-celery-flask.git
+    git clone https://github.com/shamspias/chat-gpt-celery-flask.git
     ```
 2. Install the dependencies:
     ```
